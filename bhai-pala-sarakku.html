@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>பாய் பல சரக்கு | Door Delivery - ECR &amp; OMR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#3d0f78; --plum-d:#290a52; --plum-l:#efe8fa;
+  --pink:#e5195f; --pink-l:#ffe6ee;
+  --ink:#1e1633; --muted:#6f6a80; --line:#e8e4f0;
+  --bg:#f6f4fa; --card:#ffffff; --green:#0c7a3d; --green-l:#e1f5e8; --warn:#b3261e;
+  --font:'Plus Jakarta Sans','Noto Sans Tamil','Latha','Nirmala UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.45;padding-bottom:96px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* ---------- header ---------- */
+header{background:linear-gradient(160deg,var(--plum) 0%,var(--plum-d) 100%);color:#fff;border-radius:0 0 28px 28px;padding:14px 0 20px}
+.top{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--pink);display:grid;place-items:center;font-weight:800;font-size:20px;flex:none}
+.brand{font-weight:800;font-size:18px;line-height:1.1}
+.brand small{display:block;font-weight:500;font-size:11.5px;opacity:.75;letter-spacing:.2px}
+.spacer{flex:1}
+.hbtn{position:relative;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:19px}
+.hbtn .n[hidden]{display:none}
+.hbtn .n{position:absolute;top:-3px;right:-3px;min-width:19px;height:19px;border-radius:10px;background:var(--pink);font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.eta{margin-top:14px;font-size:26px;font-weight:800;letter-spacing:-.4px}
+.eta span{color:#ffd166}
+.where{margin-top:2px;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#e9defa;padding:4px 0}
+.where b{color:#fff;border-bottom:1.5px dashed rgba(255,255,255,.55)}
+.search{margin-top:12px;position:relative}
+.search input{width:100%;height:48px;border-radius:14px;border:0;padding:0 16px 0 46px;font-size:15px;background:#fff;color:var(--ink)}
+.search input::placeholder{color:#8a849c}
+.search i{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-style:normal;font-size:18px}
+
+/* ---------- serviceability strip ---------- */
+.zone{margin:14px 0 0;background:var(--pink-l);border:1px solid #ffc2d5;color:#8b0f3c;border-radius:14px;padding:10px 14px;display:flex;gap:10px;align-items:center;font-size:13.5px;font-weight:600}
+.zone .tags{margin-left:auto;display:flex;gap:6px;flex:none}
+.zone .tag{background:var(--pink);color:#fff;border-radius:8px;padding:2px 9px;font-weight:800;font-size:12.5px}
+.zone.bad{background:#fde8e6;border-color:#f5b7b1;color:var(--warn)}
+
+/* ---------- banners ---------- */
+.banners{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px 16px 4px;margin:0 -16px;scrollbar-width:none}
+.banners::-webkit-scrollbar{display:none}
+.banner{flex:0 0 min(86%,420px);scroll-snap-align:center;border-radius:20px;padding:20px;min-height:148px;position:relative;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.banner h3{font-size:19px;line-height:1.3;max-width:68%;font-weight:800}
+.banner p{font-size:12.5px;margin-top:6px;max-width:62%;opacity:.92}
+.banner .big{position:absolute;right:10px;bottom:-6px;font-size:96px;line-height:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+.banner button{margin-top:12px;align-self:flex-start;background:#fff;color:var(--ink);font-weight:800;font-size:13px;border-radius:10px;padding:7px 14px}
+.b1{background:linear-gradient(120deg,#0c7a3d,#34b36a)}
+.b2{background:linear-gradient(120deg,#e5195f,#ff7a59)}
+.b3{background:linear-gradient(120deg,#5b21b6,#8b5cf6)}
+
+/* ---------- section heads ---------- */
+.sec{margin-top:26px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.sec-h h2{font-size:19px;font-weight:800;letter-spacing:-.2px}
+.sec-h h2 small{font-weight:500;font-size:13px;color:var(--muted);margin-left:6px}
+.sec-h button{color:var(--pink);font-weight:800;font-size:13.5px}
+
+/* ---------- categories ---------- */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:12px 8px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:12px;font-weight:700;line-height:1.25}
+.cat .ic{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;font-size:32px;background:var(--plum-l);border:2px solid transparent;transition:transform .15s}
+.cat:active .ic{transform:scale(.94)}
+.cat.on .ic{border-color:var(--pink);background:var(--pink-l)}
+.cat small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+
+/* ---------- products ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.card{background:var(--card);border-radius:16px;padding:10px;border:1px solid var(--line);display:flex;flex-direction:column}
+.pic{position:relative;border-radius:12px;aspect-ratio:1/1;display:grid;place-items:center;font-size:62px;margin-bottom:8px}
+.off{position:absolute;top:0;left:8px;background:var(--green);color:#fff;font-size:10.5px;font-weight:800;padding:3px 6px 6px;border-radius:0 0 8px 8px;line-height:1.1}
+.add{position:absolute;right:6px;bottom:-14px;min-width:70px;height:34px;border-radius:10px;background:#fff;border:1.5px solid var(--pink);color:var(--pink);font-weight:800;font-size:13.5px;box-shadow:0 3px 8px rgba(229,25,95,.18)}
+.step{position:absolute;right:6px;bottom:-14px;height:34px;border-radius:10px;background:var(--pink);color:#fff;display:flex;align-items:center;box-shadow:0 3px 8px rgba(229,25,95,.3)}
+.step button{width:30px;height:34px;font-size:18px;font-weight:800;color:#fff}
+.step span{min-width:20px;text-align:center;font-weight:800;font-size:14px}
+.price{margin-top:12px;display:flex;align-items:baseline;gap:6px}
+.price b{font-size:16px;font-weight:800}
+.price s{font-size:12px;color:var(--muted)}
+.pname{font-size:13.5px;font-weight:700;margin-top:2px;line-height:1.3}
+.pen{font-size:11.5px;color:var(--muted);font-weight:500}
+.pqty{margin-top:4px;font-size:11.5px;color:var(--muted);background:var(--bg);align-self:flex-start;border-radius:6px;padding:1px 7px;font-weight:600}
+.empty{padding:40px 10px;text-align:center;color:var(--muted)}
+.empty b{display:block;font-size:44px;margin-bottom:6px}
+
+footer{margin-top:40px;padding:22px 0 8px;color:var(--muted);font-size:12.5px;text-align:center}
+footer strong{color:var(--ink)}
+
+/* ---------- cart bar ---------- */
+.cartbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(140%);width:min(calc(100% - 24px),520px);background:var(--pink);color:#fff;border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 28px rgba(229,25,95,.4);z-index:30;transition:transform .25s ease}
+.cartbar.show{transform:translateX(-50%) translateY(0)}
+.cartbar .l{display:flex;flex-direction:column;line-height:1.2}
+.cartbar .l b{font-size:15px}
+.cartbar .l small{opacity:.9;font-size:12px}
+.cartbar .go{margin-left:auto;font-weight:800;font-size:15px}
+
+/* ---------- sheets ---------- */
+.veil{position:fixed;inset:0;background:rgba(20,10,40,.55);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;width:min(100%,540px);max-height:92vh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;z-index:50;transform:translate(-50%,105%);transition:transform .28s ease;padding:18px 16px 24px}
+.sheet.on{transform:translate(-50%,0)}
+.sheet h2{font-size:20px;font-weight:800}
+.sheet .sub{color:var(--muted);font-size:13px;margin:2px 0 14px}
+.x{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;background:#fff;font-size:16px;font-weight:800}
+.box{background:#fff;border-radius:16px;padding:14px;margin-top:12px;border:1px solid var(--line)}
+.box h3{font-size:14px;font-weight:800;margin-bottom:8px}
+
+.areas{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.areas button{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;text-align:left;font-weight:700;font-size:14px}
+.areas button small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+.areas button.on{border-color:var(--pink);background:var(--pink-l)}
+.zone-h{display:flex;align-items:center;gap:8px;margin:14px 0 8px;font-weight:800;font-size:14px}
+.zone-h .tag{background:var(--pink);color:#fff;border-radius:8px;padding:1px 9px;font-size:12.5px}
+.other{margin-top:14px;width:100%;border:1.5px dashed #c9c2d8;border-radius:12px;padding:11px;font-weight:700;color:var(--muted)}
+
+.line{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border:0}
+.line .e{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-size:26px;flex:none}
+.line .t{flex:1;min-width:0}
+.line .t b{font-size:13.5px;display:block}
+.line .t small{color:var(--muted);font-size:12px}
+.line .step{position:static}
+.line .amt{width:58px;text-align:right;font-weight:800;font-size:14px}
+.bill div{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0}
+.bill .tot{border-top:1px dashed var(--line);margin-top:6px;padding-top:9px;font-weight:800;font-size:16px}
+.bill .free{color:var(--green);font-weight:700}
+.prog{height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:8px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#34b36a);width:0;transition:width .3s}
+.note{font-size:12.5px;color:var(--muted)}
+.fld{display:block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.fld input,.fld textarea{display:block;width:100%;margin-top:4px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px;background:#fff;font-weight:500;color:var(--ink)}
+.fld textarea{resize:vertical;min-height:62px}
+.fld .err{color:var(--warn);font-weight:600;font-size:12px;margin-top:3px;display:none}
+.fld.bad input,.fld.bad textarea{border-color:var(--warn)}
+.fld.bad .err{display:block}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay label{border:1.5px solid var(--line);border-radius:12px;padding:10px;font-weight:700;font-size:13.5px;display:flex;gap:8px;align-items:center;cursor:pointer;background:#fff}
+.pay input{accent-color:var(--pink)}
+.pay label:has(input:checked){border-color:var(--pink);background:var(--pink-l)}
+.cta{display:block;width:100%;margin-top:16px;background:var(--pink);color:#fff;font-weight:800;font-size:16px;border-radius:14px;padding:14px}
+.cta:disabled{background:#c9c2d8;cursor:not-allowed}
+.cta.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);margin-top:8px}
+.alert{margin-top:12px;background:#fde8e6;color:var(--warn);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:600}
+.ok{text-align:center;padding-top:10px}
+.ok .tick{width:70px;height:70px;border-radius:50%;background:var(--green-l);display:grid;place-items:center;font-size:34px;margin:0 auto 10px}
+.ok pre{text-align:left;white-space:pre-wrap;font:500 12.5px/1.5 var(--font);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}
+
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,30px);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-size:13.5px;font-weight:600;z-index:80;opacity:0;pointer-events:none;transition:.25s;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- mobile preview frame (shown on desktop / tablet) ---------- */
+.status,.caption{display:none}
+.lock body,.lock .screen{overflow:hidden}
+@media (min-width:520px){
+  body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px 0;background:radial-gradient(1200px 600px at 50% -10%,#f3eefc,#ddd5ee)}
+  .phone{position:relative;width:390px;height:min(844px,calc(100vh - 90px));border:11px solid #0f0a1a;border-radius:50px;overflow:hidden;transform:translateZ(0);display:flex;flex-direction:column;background:var(--bg);box-shadow:0 0 0 2px #3a3350,0 30px 70px rgba(41,10,82,.35)}
+  .status{display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 24px;background:var(--plum);color:#fff;font-size:12.5px;font-weight:800;flex:none;position:relative}
+  .status::before{content:"";position:absolute;left:50%;top:7px;width:92px;height:22px;border-radius:12px;background:#0f0a1a;transform:translateX(-50%)}
+  .screen{flex:1;overflow-y:auto;padding-bottom:96px;scrollbar-width:none}
+  .screen::-webkit-scrollbar{display:none}
+  .sheet{max-height:86%}
+  .caption{display:block;color:#5d5675;font-size:12.5px;font-weight:600;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="status" aria-hidden="true"><span>9:41</span><span>5G&nbsp; ▂▄▆ &nbsp;🔋</span></div>
+<div class="screen">
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="logo" aria-hidden="true">ப</div>
+      <div class="brand">பாய் பல சரக்கு<small>Door Delivery Service</small></div>
+      <div class="spacer"></div>
+      <button class="hbtn" id="openCartTop" aria-label="Open cart">🛒<span class="n" id="topCount" hidden>0</span></button>
+    </div>
+    <div class="eta">Delivery in <span id="etaTxt">48 hours</span></div>
+    <button class="where" id="openArea" aria-label="Choose delivery area">📍 <b id="areaTxt">Select your area</b> ▾</button>
+    <div class="search">
+      <i aria-hidden="true">🔍</i>
+      <input id="q" type="search" placeholder="Search &quot;அரிசி&quot;" aria-label="Search products" autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="zone" id="zone">
+    <span aria-hidden="true">🛵</span>
+    <span id="zoneTxt">ECR &amp; OMR பகுதிகளுக்கு மட்டும் டோர் டெலிவரி</span>
+    <span class="tags"><span class="tag">ECR</span><span class="tag">OMR</span></span>
+  </div>
+
+  <div class="banners" aria-label="Offers">
+    <div class="banner b1"><h3>புதிய காய்கறிகள்<br>தினமும் காலை</h3><p>Order today, delivered within 48 hours</p><button data-go="veg">Shop now</button><span class="big">🥬</span></div>
+    <div class="banner b2"><h3>₹299-க்கு மேல்<br>டெலிவரி இலவசம்</h3><p>Free delivery on orders above ₹299</p><button data-go="staples">Shop now</button><span class="big">🛵</span></div>
+    <div class="banner b3"><h3>மளிகை சாமான்<br>ஒரே இடத்தில்</h3><p>Rice, dal, oil and masala at fair prices</p><button data-go="masala">Shop now</button><span class="big">🌾</span></div>
+  </div>
+
+  <section class="sec" id="catSec">
+    <div class="sec-h"><h2>Shop by category<small>வகைகள்</small></h2><button id="clearCat" hidden>Show all</button></div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <div id="list"></div>
+
+  <footer>
+    <p><strong>பாய் பல சரக்கு</strong> &nbsp;|&nbsp; Door Delivery: <strong>ECR &amp; OMR only</strong></p>
+    <p style="margin-top:4px">ஆர்டர் செய்த 48 மணி நேரத்திற்குள் டெலிவரி. மற்ற பகுதிகளுக்கு தற்போது டெலிவரி இல்லை.</p>
+  </footer>
+</main>
+
+</div><!-- /.screen -->
+
+<div class="cartbar" id="cartbar" role="button" tabindex="0" aria-label="View cart">
+  <span style="font-size:22px" aria-hidden="true">🛒</span>
+  <span class="l"><b id="barItems">0 items</b><small id="barSub">₹0</small></span>
+  <span class="go">View Cart ›</span>
+</div>
+
+<div class="veil" id="veil"></div>
+
+<!-- Area sheet -->
+<section class="sheet" id="areaSheet" role="dialog" aria-modal="true" aria-label="Choose delivery area">
+  <button class="x" data-close aria-label="Close">✕</button>
+  <h2>Where should we deliver?</h2>
+  <p class="sub">நாங்கள் ECR &amp; OMR பகுதிகளுக்கு மட்டுமே டெலிவரி செய்கிறோம்.</p>
+  <div class="zone-h"><span class="tag">ECR</span> East Coast Road</div>
+  <div class="areas" id="ecrList"></div>
+  <div class="zone-h"><span class="tag">OMR</span> Old Mahabalipuram Road</div>
+  <div class="areas" id="omrList"></div>
+  <button class="other" id="otherArea">My area is not listed</button>
+</section>
+
+<!-- Cart sheet -->
+<section class="sheet" id="cartSheet" role="dialog" aria-modal="true" aria-label="Your cart">
+  <button class="x" data-close aria-label="Close">✕</button>
+  <h2>Your cart</h2>
+  <p class="sub" id="cartSub">உங்கள் பொருட்கள்</p>
+  <div id="cartBody"></div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div><!-- /.phone -->
+<p class="caption">Mobile preview. Open this file on a phone for the full-screen view.</p>
+
+<script>
+/* ============ EDIT THESE ============ */
+const STORE_WHATSAPP = "";      // e.g. "919876543210" (country code + number, no +). Orders open in this WhatsApp chat.
+const ETA            = "48 hours";   // delivery window shown to customers
+const FREE_ABOVE     = 299;     // free delivery above this cart value
+const DELIVERY_FEE   = 25;
+const HANDLING_FEE   = 5;
+const MIN_ORDER      = 99;
+const AREAS = {
+  ECR: ["Thiruvanmiyur","Palavakkam","Neelankarai","Injambakkam","Akkarai","Uthandi","Muttukadu","Kovalam"],
+  OMR: ["Thoraipakkam","Perungudi","Karapakkam","Sholinganallur","Navalur","Siruseri","Kelambakkam"]
+};
+const CATS = [
+  ["veg","காய்கறிகள்","Vegetables","🥬","#e6f6e3"],
+  ["fruit","பழங்கள்","Fruits","🍎","#ffe9e6"],
+  ["dairy","பால் & முட்டை","Dairy & Eggs","🥛","#e8f1ff"],
+  ["staples","அரிசி & பருப்பு","Rice & Dal","🌾","#fff3d6"],
+  ["masala","மசாலா","Masala","🌶️","#ffe6e0"],
+  ["oil","எண்ணெய் & நெய்","Oil & Ghee","🛢️","#fff7cc"],
+  ["snacks","நொறுக்குத் தீனி","Snacks","🥨","#f6e9dc"],
+  ["drinks","பானங்கள்","Drinks","🍵","#e3f4f1"],
+  ["home","வீட்டு பொருட்கள்","Home Care","🧼","#ece8fb"]
+];
+/* id, category, Tamil name, English name, pack, price, MRP, emoji */
+const PRODUCTS = [
+ ["v1","veg","தக்காளி","Tomato","500 g",28,35,"🍅"],
+ ["v2","veg","வெங்காயம்","Onion","1 kg",42,50,"🧅"],
+ ["v3","veg","உருளைக்கிழங்கு","Potato","1 kg",46,55,"🥔"],
+ ["v4","veg","கேரட்","Carrot","500 g",38,45,"🥕"],
+ ["v5","veg","கத்திரிக்காய்","Brinjal","500 g",34,40,"🍆"],
+ ["v6","veg","வெண்டைக்காய்","Ladies finger","500 g",36,42,"🥒"],
+ ["v7","veg","பச்சை மிளகாய்","Green chilli","100 g",12,15,"🌶️"],
+ ["v8","veg","கொத்தமல்லி","Coriander leaves","1 bunch",10,12,"🌿"],
+ ["f1","fruit","வாழைப்பழம்","Banana","6 pcs",36,42,"🍌"],
+ ["f2","fruit","ஆப்பிள்","Apple","4 pcs",160,190,"🍎"],
+ ["f3","fruit","எலுமிச்சை","Lemon","4 pcs",20,25,"🍋"],
+ ["f4","fruit","தர்பூசணி","Watermelon","1 pc",70,85,"🍉"],
+ ["f5","fruit","திராட்சை","Grapes","500 g",80,99,"🍇"],
+ ["d1","dairy","பால்","Milk","500 ml",29,30,"🥛"],
+ ["d2","dairy","தயிர்","Curd","400 g",36,40,"🥣"],
+ ["d3","dairy","முட்டை","Eggs","6 pcs",48,54,"🥚"],
+ ["d4","dairy","வெண்ணெய்","Butter","100 g",58,62,"🧈"],
+ ["d5","dairy","பன்னீர்","Paneer","200 g",92,105,"🧀"],
+ ["s1","staples","பொன்னி அரிசி","Ponni rice","5 kg",360,420,"🌾"],
+ ["s2","staples","துவரம் பருப்பு","Toor dal","1 kg",168,190,"🫘"],
+ ["s3","staples","உளுந்து","Urad dal","500 g",92,105,"🫘"],
+ ["s4","staples","கடலை பருப்பு","Chana dal","500 g",62,70,"🫘"],
+ ["s5","staples","கோதுமை மாவு","Wheat atta","5 kg",245,270,"🌾"],
+ ["s6","staples","சர்க்கரை","Sugar","1 kg",48,54,"🍚"],
+ ["m1","masala","மிளகாய் தூள்","Chilli powder","200 g",64,72,"🌶️"],
+ ["m2","masala","மல்லி தூள்","Coriander powder","200 g",52,60,"🌿"],
+ ["m3","masala","மஞ்சள் தூள்","Turmeric powder","100 g",38,45,"🟡"],
+ ["m4","masala","கரம் மசாலா","Garam masala","100 g",70,80,"🧂"],
+ ["m5","masala","உப்பு","Salt","1 kg",22,25,"🧂"],
+ ["o1","oil","கடலை எண்ணெய்","Groundnut oil","1 L",198,220,"🛢️"],
+ ["o2","oil","நல்லெண்ணெய்","Gingelly oil","500 ml",285,320,"🫒"],
+ ["o3","oil","தேங்காய் எண்ணெய்","Coconut oil","500 ml",215,240,"🥥"],
+ ["o4","oil","நெய்","Ghee","500 ml",320,360,"🧈"],
+ ["n1","snacks","முறுக்கு","Murukku","200 g",60,70,"🥨"],
+ ["n2","snacks","பிஸ்கட்","Biscuits","1 pack",30,35,"🍪"],
+ ["n3","snacks","வாழைக்காய் சிப்ஸ்","Banana chips","150 g",55,65,"🍌"],
+ ["n4","snacks","மிக்சர்","Mixture","200 g",58,66,"🥜"],
+ ["k1","drinks","தேயிலை தூள்","Tea powder","250 g",110,125,"🍵"],
+ ["k2","drinks","ஃபில்டர் காபி","Filter coffee","200 g",120,135,"☕"],
+ ["k3","drinks","ரோஸ் மில்க்","Rose milk","200 ml",25,30,"🥤"],
+ ["k4","drinks","இளநீர்","Tender coconut","1 pc",45,55,"🥥"],
+ ["h1","home","பாத்திரம் கழுவும் திரவம்","Dishwash liquid","500 ml",95,110,"🧼"],
+ ["h2","home","சலவை தூள்","Detergent powder","1 kg",120,140,"🧺"],
+ ["h3","home","குளியல் சோப்பு","Bath soap","3 pcs",99,120,"🧼"]
+];
+
+/* ============ STATE ============ */
+const $ = s => document.querySelector(s);
+const state = { cart:{}, area:null, cat:null, q:"" };
+const byId = Object.fromEntries(PRODUCTS.map(p=>[p[0],p]));
+const catMeta = Object.fromEntries(CATS.map(c=>[c[0],c]));
+const inr = n => "₹" + n.toLocaleString("en-IN");
+try{
+  const saved = JSON.parse(localStorage.getItem("bps") || "{}");
+  if(saved.cart) state.cart = saved.cart;
+  if(saved.area) state.area = saved.area;
+}catch(e){}
+function persist(){ try{ localStorage.setItem("bps", JSON.stringify({cart:state.cart, area:state.area})); }catch(e){} }
+
+/* ============ HELPERS ============ */
+function slotDays(){
+  return [1,2].map(n=>{ const d=new Date(); d.setDate(d.getDate()+n);
+    return (n===1?"Tomorrow, ":"Day after, ")+d.toLocaleDateString("en-IN",{day:"numeric",month:"short"}); });
+}
+function serviceable(){ return state.area && state.area.zone !== "OTHER"; }
+function count(){ return Object.values(state.cart).reduce((a,b)=>a+b,0); }
+function subtotal(){ return Object.entries(state.cart).reduce((a,[id,q])=>a+byId[id][5]*q,0); }
+function fees(){
+  const s = subtotal();
+  return { handling: s? HANDLING_FEE:0, delivery: s && s < FREE_ABOVE ? DELIVERY_FEE : 0 };
+}
+function total(){ const f=fees(); return subtotal()+f.handling+f.delivery; }
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("on"),2200); }
+
+/* ============ RENDER: header, zone ============ */
+function renderHead(){
+  $("#etaTxt").textContent = ETA;
+  $("#areaTxt").textContent = state.area ? (state.area.zone==="OTHER" ? "Area not serviceable" : state.area.name+", "+state.area.zone) : "Select your area";
+  const z=$("#zone");
+  if(state.area && state.area.zone==="OTHER"){
+    z.classList.add("bad"); $("#zoneTxt").textContent="இந்த பகுதிக்கு டெலிவரி இல்லை. ECR & OMR மட்டும்.";
+  } else { z.classList.remove("bad"); $("#zoneTxt").textContent="ECR & OMR பகுதிகளுக்கு மட்டும் டோர் டெலிவரி"; }
+}
+
+/* ============ RENDER: categories ============ */
+function renderCats(){
+  $("#cats").innerHTML = CATS.map(c=>`
+    <button class="cat ${state.cat===c[0]?'on':''}" data-cat="${c[0]}" aria-pressed="${state.cat===c[0]}">
+      <span class="ic" style="${state.cat===c[0]?'':'background:'+c[4]}">${c[3]}</span>
+      <span>${c[1]}<small>${c[2]}</small></span>
+    </button>`).join("");
+  $("#clearCat").hidden = !state.cat && !state.q;
+}
+
+/* ============ RENDER: products ============ */
+function ctl(id){
+  const q = state.cart[id]||0;
+  return q
+   ? `<div class="step" data-id="${id}"><button data-act="dec" aria-label="Remove one">−</button><span>${q}</span><button data-act="inc" aria-label="Add one">+</button></div>`
+   : `<button class="add" data-id="${id}" data-act="inc" aria-label="Add ${byId[id][3]}">ADD</button>`;
+}
+function card(p){
+  const [id,cat,ta,en,pack,price,mrp,emo]=p;
+  const save = mrp-price;
+  return `<article class="card" data-card="${id}">
+    <div class="pic" style="background:${catMeta[cat][4]}">
+      ${save>0?`<span class="off">₹${save}<br>OFF</span>`:""}
+      <span aria-hidden="true">${emo}</span>
+      <span data-ctl="${id}">${ctl(id)}</span>
+    </div>
+    <div class="price"><b>${inr(price)}</b>${mrp>price?`<s>${inr(mrp)}</s>`:""}</div>
+    <div class="pname">${ta}<div class="pen">${en}</div></div>
+    <span class="pqty">${pack}</span>
+  </article>`;
+}
+function renderList(){
+  const q = state.q.trim().toLowerCase();
+  let items = PRODUCTS.filter(p => (!state.cat || p[1]===state.cat) && (!q || (p[2]+" "+p[3]).toLowerCase().includes(q)));
+  const host = $("#list");
+  if(!items.length){
+    host.innerHTML = `<div class="empty"><b>🔎</b>"${state.q.replace(/[<>&]/g,"")}" கிடைக்கவில்லை.<br>Try another name, or browse a category.</div>`;
+    return;
+  }
+  if(state.cat || q){
+    const title = state.cat ? `${catMeta[state.cat][1]}<small>${catMeta[state.cat][2]}</small>` : `Results<small>${items.length} items</small>`;
+    host.innerHTML = `<section class="sec"><div class="sec-h"><h2>${title}</h2></div><div class="grid">${items.map(card).join("")}</div></section>`;
+    return;
+  }
+  host.innerHTML = CATS.map(c=>{
+    const list = items.filter(p=>p[1]===c[0]);
+    return list.length ? `<section class="sec" id="sec-${c[0]}"><div class="sec-h"><h2>${c[1]}<small>${c[2]}</small></h2><button data-cat="${c[0]}">See all</button></div><div class="grid">${list.map(card).join("")}</div></section>` : "";
+  }).join("");
+}
+function refreshControls(id){
+  document.querySelectorAll(`[data-ctl="${id}"]`).forEach(el=>el.innerHTML=ctl(id));
+}
+
+/* ============ CART BAR + SHEET ============ */
+function renderBar(){
+  const n=count();
+  $("#cartbar").classList.toggle("show", n>0);
+  $("#barItems").textContent = n+(n===1?" item":" items");
+  $("#barSub").textContent = inr(subtotal())+" plus fees";
+  const tc=$("#topCount"); tc.hidden = n===0; tc.textContent=n;
+}
+function renderCart(){
+  const host=$("#cartBody");
+  const ids=Object.keys(state.cart);
+  if(!ids.length){
+    host.innerHTML=`<div class="empty"><b>🛒</b>உங்கள் கூடை காலியாக உள்ளது.<br>Add items to see them here.</div><button class="cta" data-close>Start shopping</button>`;
+    $("#cartSub").textContent="உங்கள் பொருட்கள்"; return;
+  }
+  const s=subtotal(), f=fees(), pct=Math.min(100,Math.round(s/FREE_ABOVE*100));
+  const left=FREE_ABOVE-s;
+  $("#cartSub").textContent = count()+" items, delivering to "+(state.area? (state.area.zone==="OTHER"?"an unserviceable area":state.area.name+", "+state.area.zone):"(choose area)");
+  host.innerHTML = `
+   <div class="box">
+     <p class="note" style="font-weight:700;color:${left>0?'var(--ink)':'var(--green)'}">${left>0?`Add ${inr(left)} more for free delivery`:"You get free delivery 🎉"}</p>
+     <div class="prog"><i style="width:${pct}%"></i></div>
+   </div>
+   <div class="box">${ids.map(id=>{const p=byId[id];return `<div class="line">
+      <div class="e" style="background:${catMeta[p[1]][4]}">${p[7]}</div>
+      <div class="t"><b>${p[2]}</b><small>${p[3]}, ${p[4]}</small></div>
+      <div class="step" data-id="${id}"><button data-act="dec" aria-label="Remove one">−</button><span>${state.cart[id]}</span><button data-act="inc" aria-label="Add one">+</button></div>
+      <div class="amt">${inr(p[5]*state.cart[id])}</div></div>`}).join("")}</div>
+   <div class="box bill"><h3>Bill details</h3>
+     <div><span>Item total</span><span>${inr(s)}</span></div>
+     <div><span>Handling fee</span><span>${inr(f.handling)}</span></div>
+     <div><span>Delivery fee</span>${f.delivery?`<span>${inr(f.delivery)}</span>`:`<span class="free">FREE</span>`}</div>
+     <div class="tot"><span>To pay</span><span>${inr(total())}</span></div>
+   </div>
+   <div class="box"><h3>Delivery details</h3>
+     <label class="fld" id="fName">Name<input id="iName" autocomplete="name" placeholder="Your name"><span class="err">பெயரை உள்ளிடவும் (Enter your name)</span></label>
+     <label class="fld" id="fPhone">Mobile number<input id="iPhone" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10-digit mobile number"><span class="err">சரியான 10 இலக்க எண்ணை உள்ளிடவும்</span></label>
+     <label class="fld" id="fAddr">Address<textarea id="iAddr" placeholder="Flat / house no, street, landmark"></textarea><span class="err">முகவரியை உள்ளிடவும் (Enter your address)</span></label>
+   </div>
+   <div class="box"><h3>Delivery slot <span class="note">(within 48 hours)</span></h3>
+     <div class="pay">${slotDays().map((d,i)=>`<label><input type="radio" name="day" value="${d}" ${i===0?'checked':''}> ${d}</label>`).join("")}</div>
+     <div class="pay" style="margin-top:8px"><label><input type="radio" name="slot" value="Morning 8 AM - 12 PM" checked> Morning<br><small class="note">8 AM - 12 PM</small></label><label><input type="radio" name="slot" value="Evening 4 PM - 8 PM"> Evening<br><small class="note">4 PM - 8 PM</small></label></div>
+   </div>
+   <div class="box"><h3>Payment on delivery</h3>
+     <div class="pay"><label><input type="radio" name="pay" value="Cash" checked> Cash</label><label><input type="radio" name="pay" value="UPI"> UPI</label></div>
+   </div>
+   <div id="cartAlert"></div>
+   <button class="cta" id="place">Place order  |  ${inr(total())}</button>
+   <button class="cta ghost" id="clearCart">Clear cart</button>`;
+  if(!serviceable()){
+    $("#cartAlert").innerHTML = `<div class="alert">${state.area?"இந்த பகுதிக்கு டெலிவரி இல்லை. நாங்கள் ECR & OMR மட்டும் டெலிவரி செய்கிறோம்.":"Choose your ECR or OMR area to place the order."}</div>`;
+  } else if(s<MIN_ORDER){
+    $("#cartAlert").innerHTML = `<div class="alert">Minimum order is ${inr(MIN_ORDER)}. Add ${inr(MIN_ORDER-s)} more.</div>`;
+  }
+  $("#place").disabled = !serviceable() || s<MIN_ORDER;
+}
+
+/* ============ SHEETS ============ */
+function open(sheet){ $("#veil").classList.add("on"); $(sheet).classList.add("on"); document.documentElement.classList.add("lock"); }
+function closeAll(){ $("#veil").classList.remove("on"); document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("on")); document.documentElement.classList.remove("lock"); }
+function renderAreas(){
+  for(const z of ["ECR","OMR"]){
+    $("#"+z.toLowerCase()+"List").innerHTML = AREAS[z].map(a=>`<button data-zone="${z}" data-name="${a}" class="${state.area&&state.area.name===a?'on':''}">${a}<small>${z}</small></button>`).join("");
+  }
+}
+
+/* ============ ACTIONS ============ */
+function change(id,delta){
+  const q=(state.cart[id]||0)+delta;
+  if(q<=0) delete state.cart[id]; else state.cart[id]=Math.min(q,20);
+  persist(); refreshControls(id); renderBar();
+  if($("#cartSheet").classList.contains("on")){
+    const keep={n:$("#iName")?.value,p:$("#iPhone")?.value,a:$("#iAddr")?.value};
+    renderCart();
+    if($("#iName")){ $("#iName").value=keep.n||""; $("#iPhone").value=keep.p||""; $("#iAddr").value=keep.a||""; }
+  }
+}
+function setArea(zone,name){
+  state.area={zone,name}; persist(); renderHead(); renderAreas(); closeAll();
+  toast(zone==="OTHER"?"Sorry, we deliver only in ECR & OMR":"Delivering to "+name+", "+zone);
+  if($("#cartSheet").classList.contains("on")) renderCart();
+}
+function validate(){
+  const name=$("#iName").value.trim(), ph=$("#iPhone").value.trim(), ad=$("#iAddr").value.trim();
+  const rules=[["fName",name.length>1],["fPhone",/^[6-9]\d{9}$/.test(ph)],["fAddr",ad.length>5]];
+  rules.forEach(([id,ok])=>document.getElementById(id).classList.toggle("bad",!ok));
+  return rules.every(r=>r[1]) ? {name,ph,ad} : null;
+}
+function placeOrder(){
+  const d=validate(); if(!d) { toast("Please fill the delivery details"); return; }
+  const pay=document.querySelector('input[name="pay"]:checked').value;
+  const day=document.querySelector('input[name="day"]:checked').value;
+  const slot=document.querySelector('input[name="slot"]:checked').value;
+  const id="BPS"+Date.now().toString().slice(-6);
+  const lines=Object.entries(state.cart).map(([k,q])=>`${q} x ${byId[k][2]} (${byId[k][3]}, ${byId[k][4]}) = ${inr(byId[k][5]*q)}`);
+  const msg=[`பாய் பல சரக்கு - New order ${id}`,"",...lines,"",`Item total: ${inr(subtotal())}`,`Handling: ${inr(fees().handling)}`,`Delivery: ${fees().delivery?inr(fees().delivery):"FREE"}`,`To pay: ${inr(total())} (${pay} on delivery)`,"",`Name: ${d.name}`,`Mobile: ${d.ph}`,`Area: ${state.area.name}, ${state.area.zone}`,`Address: ${d.ad}`,`Delivery slot: ${day}, ${slot}`].join("\n");
+  $("#cartSub").textContent="Order placed";
+  const slotTxt=day+", "+slot;
+  $("#cartBody").innerHTML=`<div class="ok"><div class="tick">✓</div><h2>Order ${id} placed</h2>
+    <p class="sub">${STORE_WHATSAPP?"WhatsApp opened with your order. Send it to confirm.":"Copy this summary and send it to the store on WhatsApp to confirm."}<br>Delivery slot: ${slotTxt}.</p>
+    <pre id="sum"></pre>
+    <button class="cta" id="copySum">Copy order summary</button><button class="cta ghost" data-close>Done</button></div>`;
+  $("#sum").textContent=msg;
+  state.cart={}; persist(); renderBar(); renderList();
+  if(STORE_WHATSAPP) window.open("https://wa.me/"+STORE_WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
+}
+
+/* ============ EVENTS ============ */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,[data-go],#cartbar,#veil"); if(!t) return;
+  if(t.dataset.act){ const id=t.closest("[data-id]").dataset.id; change(id,t.dataset.act==="inc"?1:-1); return; }
+  if(t.dataset.cat){ state.cat=t.dataset.cat; state.q=""; $("#q").value=""; renderCats(); renderList(); $("#catSec").scrollIntoView({block:"start"}); return; }
+  if(t.dataset.go){ state.cat=t.dataset.go; renderCats(); renderList(); $("#catSec").scrollIntoView({block:"start"}); return; }
+  if(t.id==="clearCat"){ state.cat=null; state.q=""; $("#q").value=""; renderCats(); renderList(); return; }
+  if(t.id==="openArea"){ renderAreas(); open("#areaSheet"); return; }
+  if(t.id==="openCartTop"||t.id==="cartbar"){ renderCart(); open("#cartSheet"); return; }
+  if(t.dataset.zone){ setArea(t.dataset.zone,t.dataset.name); return; }
+  if(t.id==="otherArea"){ setArea("OTHER","Other"); return; }
+  if(t.id==="place"){ placeOrder(); return; }
+  if(t.id==="clearCart"){ state.cart={}; persist(); renderBar(); renderList(); renderCart(); return; }
+  if(t.id==="copySum"){ navigator.clipboard?.writeText($("#sum").textContent).then(()=>toast("Order summary copied"),()=>toast("Select and copy the text manually")); return; }
+  if(t.id==="veil"||t.hasAttribute("data-close")) closeAll();
+});
+$("#cartbar").addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); renderCart(); open("#cartSheet"); }});
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeAll(); });
+$("#q").addEventListener("input",e=>{ state.q=e.target.value; renderCats(); renderList(); });
+
+/* rotating search hint */
+const hints=["அரிசி","பால்","தக்காளி","நெய்","மிளகாய் தூள்","Eggs"]; let hi=0;
+setInterval(()=>{ if(document.activeElement!==$("#q")){ hi=(hi+1)%hints.length; $("#q").placeholder='Search "'+hints[hi]+'"'; }},2600);
+
+/* ============ INIT ============ */
+renderHead(); renderCats(); renderList(); renderBar(); renderAreas();
+if(!state.area) setTimeout(()=>open("#areaSheet"),500);
+</script>
+</body>
+</html>
