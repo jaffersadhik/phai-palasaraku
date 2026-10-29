@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e6b4a">
+<title>பாய் பல சரக்கு | WhatsApp Order</title>
+<meta name="description" content="பாய் பல சரக்கு: பொருட்களைத் தேர்வு செய்து WhatsApp-ல் ஆர்டர் அனுப்புங்கள். ECR & OMR டோர் டெலிவரி, 48 மணி நேரத்திற்குள்.">
+<meta property="og:title" content="பாய் பல சரக்கு - WhatsApp Order">
+<meta property="og:description" content="காய்கறி, பழம், அரிசி, பருப்பு, மசாலா, நட்ஸ், டேட்ஸ். 48 மணி நேரத்திற்குள் டெலிவரி.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Mukta+Malar:wght@600;800&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --leaf:#0e6b4a; --leaf-d:#09442f; --leaf-l:#dff0e7;
+  --gold:#e9b431; --gold-d:#8a6508;
+  --ink:#14231c; --muted:#5f6f66; --line:#dbe6df;
+  --bg:#f2f7f4; --card:#fff; --wa:#1faa59; --bad:#b3261e;
+  --body:'DM Sans','Noto Sans Tamil','Latha','Nirmala UI',system-ui,sans-serif;
+  --head:'Mukta Malar','DM Sans','Noto Sans Tamil','Latha',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--body);background:#d9e6de;color:var(--ink);line-height:1.45}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;box-shadow:0 0 40px rgba(9,68,47,.18);padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+
+/* ---- app bar ---- */
+.bar{position:sticky;top:0;z-index:20;background:var(--leaf);color:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;display:flex;align-items:center;gap:12px}
+.bar .mark{width:42px;height:42px;border-radius:13px;background:var(--gold);color:var(--leaf-d);display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:24px;flex:none}
+.bar .back{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.16);font-size:22px;font-weight:700;flex:none}
+.bar h1{font-family:var(--head);font-size:21px;line-height:1.15;font-weight:800}
+.bar small{display:block;font-size:12.5px;opacity:.82;font-weight:500}
+.find{position:sticky;top:calc(66px + env(safe-area-inset-top,0px));z-index:19;background:var(--bg);padding:10px 16px 8px}
+.find input{width:100%;height:46px;border-radius:14px;border:1.5px solid var(--line);background:#fff;padding:0 14px 0 42px;font-size:15px}
+.find span{position:absolute;left:30px;top:50%;transform:translateY(-38%);font-size:16px;pointer-events:none}
+
+.pad{padding:6px 16px 0}
+
+/* ---- how it works ---- */
+.how{background:var(--leaf-l);border-radius:18px;padding:14px 14px 12px;margin-top:6px}
+.how ol{list-style:none;display:grid;gap:8px;margin-top:2px}
+.how li{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.how li i{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--leaf);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:700;flex:none}
+.how p{margin-top:10px;font-size:12.5px;font-weight:700;color:var(--leaf-d)}
+.how p+p{margin-top:4px}
+.win{display:flex;gap:10px;align-items:center;background:var(--leaf-l);color:var(--leaf-d);border-radius:14px;padding:11px 12px;margin-top:12px;font-size:13.5px;font-weight:700;line-height:1.35}
+.win span{font-size:20px}
+
+/* ---- category tiles ---- */
+.h2{font-family:var(--head);font-size:19px;font-weight:800;margin:20px 0 10px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;text-align:left;background:var(--tint,#fff);border-radius:20px;padding:14px 14px 12px;min-height:138px;display:flex;flex-direction:column;border:2px solid transparent;transition:transform .12s}
+.tile:active{transform:scale(.97)}
+.tile .em{font-size:40px;line-height:1.1}
+.tile b{font-family:var(--head);font-size:17.5px;font-weight:800;margin-top:auto;line-height:1.2}
+.tile small{font-size:12px;color:var(--muted);font-weight:500}
+.tile .cnt{font-size:11.5px;font-weight:700;color:var(--leaf-d);margin-top:3px}
+.tile .got{position:absolute;top:10px;right:10px;background:var(--leaf);color:#fff;border-radius:11px;min-width:24px;height:24px;padding:0 8px;font-size:12.5px;font-weight:700;display:grid;place-items:center}
+.tile.has{border-color:var(--leaf)}
+
+/* ---- item rows ---- */
+.group{font-family:var(--head);font-weight:800;font-size:15px;margin:16px 0 6px;color:var(--leaf-d)}
+.rows{background:var(--card);border-radius:18px;border:1px solid var(--line);overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:25px;flex:none;background:var(--tint,#eef)}
+.row .nm{flex:1;min-width:0}
+.row .nm b{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.row .nm small{font-size:12px;color:var(--muted)}
+.add{min-width:74px;height:36px;border-radius:11px;border:1.5px solid var(--leaf);color:var(--leaf);font-weight:700;font-size:14px;background:#fff}
+.step{display:flex;align-items:center;height:36px;border-radius:11px;background:var(--leaf);color:#fff;flex:none}
+.step button{width:34px;height:36px;font-size:20px;font-weight:700;color:#fff}
+.step span{min-width:58px;text-align:center;font-size:13.5px;font-weight:700;white-space:nowrap}
+.none{padding:46px 12px;text-align:center;color:var(--muted)}
+.none b{display:block;font-size:42px;margin-bottom:6px}
+
+footer{padding:26px 16px 8px;text-align:center;font-size:12.5px;color:var(--muted)}
+footer a{color:var(--leaf);font-weight:700}
+
+/* ---- bottom bar ---- */
+.dock{position:fixed;left:50%;bottom:0;transform:translate(-50%,120%);width:min(100%,480px);padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--bg) 70%,rgba(242,247,244,0));z-index:30;transition:transform .22s}
+.dock.show{transform:translate(-50%,0)}
+.dock button{width:100%;height:56px;border-radius:16px;background:var(--leaf);color:#fff;display:flex;align-items:center;gap:10px;padding:0 18px;box-shadow:0 8px 22px rgba(9,68,47,.35);font-weight:700;font-size:16px}
+.dock .n{background:var(--gold);color:var(--leaf-d);border-radius:10px;padding:2px 10px;font-size:14px;font-weight:800}
+.dock .go{margin-left:auto}
+
+/* ---- review sheet ---- */
+.veil{position:fixed;inset:0;background:rgba(10,30,22,.55);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;width:min(100%,480px);max-height:92vh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;z-index:50;transform:translate(-50%,105%);transition:transform .26s ease;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.sheet.on{transform:translate(-50%,0)}
+.sheet h2{font-family:var(--head);font-size:21px;font-weight:800;padding-right:44px}
+.sheet .sub{font-size:13px;color:var(--muted);margin:2px 0 6px}
+.x{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;font-weight:800;font-size:16px}
+.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
+.box h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.rline{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.rline:last-child{border:0}
+.rline .nm{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.25}
+.rline .nm small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+.rline .step span{min-width:52px}
+.rcat{font-family:var(--head);font-weight:800;font-size:14px;color:var(--leaf-d);margin:10px 0 2px}
+.rcat:first-child{margin-top:0}
+.fld{display:block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.fld input,.fld textarea{display:block;width:100%;margin-top:4px;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;font-weight:500;background:#fff}
+.fld textarea{min-height:64px;resize:vertical}
+.fld .err{display:none;color:var(--bad);font-size:12px;font-weight:600;margin-top:3px}
+.fld.bad input,.fld.bad textarea{border-color:var(--bad)}
+.fld.bad .err{display:block}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;height:54px;border-radius:15px;background:var(--wa);color:#fff;font-weight:700;font-size:16px;text-decoration:none}
+.cta.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.ok{text-align:center;padding-top:6px}
+.ok .tick{width:68px;height:68px;border-radius:50%;background:var(--leaf-l);display:grid;place-items:center;font-size:32px;margin:0 auto 8px}
+.ok pre{text-align:left;white-space:pre-wrap;word-break:break-word;font:500 12.5px/1.5 var(--body);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;max-height:240px;overflow:auto}
+.toast{position:fixed;left:50%;bottom:104px;transform:translate(-50%,24px);background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-size:13.5px;font-weight:600;z-index:80;opacity:0;pointer-events:none;transition:.22s;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.lock{overflow:hidden}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="bar" id="bar"></header>
+  <div class="find"><span aria-hidden="true">🔍</span><input id="q" type="search" autocomplete="off" aria-label="Search items"></div>
+  <main class="pad" id="view"></main>
+  <footer>
+    <p><strong>பாய் பல சரக்கு</strong> | ECR &amp; OMR பகுதிகளுக்கு மட்டும் டோர் டெலிவரி</p>
+    <p style="margin-top:4px">ஆர்டர் செய்த 48 மணி நேரத்திற்குள் டெலிவரி</p>
+    <p style="margin-top:4px">அழைக்க: <a href="tel:+919487660738">9487660738</a></p>
+  </footer>
+</div>
+
+<div class="dock" id="dock"><button id="openReview" aria-label="Review order"><span class="n" id="dockN">0</span><span id="dockT">பொருட்கள் தேர்வு</span><span class="go">Review order ›</span></button></div>
+<div class="veil" id="veil"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Review your order">
+  <button class="x" data-close aria-label="Close">✕</button>
+  <div id="sheetBody"></div>
+</section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ================= EDIT HERE ================= */
+const STORE_WHATSAPP = "919487660738";   // country code + number, no "+"
+const STORE_NAME     = "பாய் பல சரக்கு";
+const WINDOW_TA      = "ஆர்டர் செய்த 48 மணி நேரத்திற்குள்";   // delivery window shown to customers
+const WINDOW_EN      = "within 48 hours of ordering";
+
+/* unit profiles: unit, first quantity when ADD is tapped, step for + and - */
+const UNITS = {
+  g100:{u:"g",  start:100, step:100},   // spices
+  g250:{u:"g",  start:250, step:250},   // nuts, dates, tea
+  kgh: {u:"g",  start:500, step:500},   // vegetables, dal
+  kgs: {u:"g",  start:500, step:500},   // fruits
+  kg1: {u:"g",  start:1000,step:1000},  // rice, sugar, flour
+  ml:  {u:"ml", start:500, step:500},   // oils
+  ml5: {u:"ml", start:500, step:500},   // ghee
+  pc:  {u:"pc", start:1,   step:1},
+  dz:  {u:"pc", start:6,   step:6},     // bananas, eggs-style counts
+  bunch:{u:"bunch",start:1,step:1},
+  pkt: {u:"pkt",start:1,   step:1}
+};
+
+/* categories: id, Tamil, English, emoji, tile colour */
+const CATS = [
+  ["veg","காய்கறிகள்","Vegetables","🥬","#dff1d8"],
+  ["fruit","பழங்கள்","Fruits","🍎","#ffe5df"],
+  ["rice","அரிசி வகைகள்","Rice & Flour","🌾","#fff0c9"],
+  ["dal","பருப்பு வகைகள்","Dals & Pulses","🫘","#f6e4cf"],
+  ["masala","மசாலா பொருட்கள்","Masala & Spices","🌶️","#ffdcd4"],
+  ["nuts","நட்ஸ் வகைகள்","Nuts & Dry Fruits","🥜","#f1e6da"],
+  ["dates","டேட்ஸ் வகைகள்","Dates","🌴","#ece0f6"],
+  ["grocery","மளிகை & எண்ணெய்","Grocery & Oil","🛢️","#dcefec"]
+];
+
+/* items: [Tamil, English, unit profile, emoji (optional)] */
+const RAW = {
+ veg:[
+  ["பல்லாரி வெங்காயம்","Onion","kgh","🧅"],["சின்ன வெங்காயம்","Small onion (Shallots)","kgh","🧅"],
+  ["தக்காளி","Tomato","kgh","🍅"],["உருளைக்கிழங்கு","Potato","kgh","🥔"],["கேரட்","Carrot","kgh","🥕"],
+  ["பீன்ஸ்","Beans","kgh","🫛"],["கத்திரிக்காய்","Brinjal","kgh","🍆"],["வெண்டைக்காய்","Ladies finger","kgh"],
+  ["முருங்கைக்காய்","Drumstick","kgh"],["பீட்ரூட்","Beetroot","kgh"],["முட்டைகோஸ்","Cabbage","kgh","🥬"],
+  ["காலிஃபிளவர்","Cauliflower","pc","🥦"],["குடமிளகாய்","Capsicum","kgh","🫑"],["பச்சை மிளகாய்","Green chilli","g100","🌶️"],
+  ["இஞ்சி","Ginger","g100"],["பூண்டு","Garlic","g250","🧄"],["வாழைக்காய்","Raw banana","pc"],
+  ["பூசணிக்காய்","Pumpkin","kgh","🎃"],["சுரைக்காய்","Bottle gourd","pc"],["புடலங்காய்","Snake gourd","pc"],
+  ["தேங்காய்","Coconut","pc","🥥"],["கொத்தமல்லி","Coriander leaves","bunch","🌿"],["கறிவேப்பிலை","Curry leaves","bunch","🌿"],
+  ["புதினா","Mint leaves","bunch","🌿"],["கீரை","Greens (Keerai)","bunch","🥬"],["எலுமிச்சை","Lemon","pc","🍋"]
+ ],
+ fruit:[
+  ["வாழைப்பழம்","Banana","dz","🍌"],["ஆப்பிள்","Apple","kgs","🍎"],["ஆரஞ்சு","Orange","kgs","🍊"],
+  ["சாத்துக்குடி","Sweet lime (Mosambi)","kgs","🍊"],["மாதுளை","Pomegranate","kgs"],["திராட்சை","Grapes","kgs","🍇"],
+  ["கொய்யா","Guava","kgs","🍐"],["பப்பாளி","Papaya","pc"],["தர்பூசணி","Watermelon","pc","🍉"],
+  ["அன்னாசி","Pineapple","pc","🍍"],["மாம்பழம்","Mango","kgs","🥭"],["பேரிக்காய்","Pear","kgs","🍐"],
+  ["சப்போட்டா","Sapota","kgs"],["இளநீர்","Tender coconut","pc","🥥"]
+ ],
+ rice:[
+  ["பொன்னி அரிசி","Ponni rice","kg1"],["பாசுமதி அரிசி","Basmati rice","kg1"],["சீரக சம்பா அரிசி","Seeraga samba rice","kg1"],
+  ["இட்லி அரிசி","Idli rice","kg1"],["பச்சரிசி","Raw rice (Pacharisi)","kg1"],["புழுங்கல் அரிசி","Boiled rice (Puzhungal)","kg1"],
+  ["கைக்குத்தல் அரிசி","Hand-pounded rice","kg1"],["அவல்","Poha (Aval)","g250"],["ஜவ்வரிசி","Sago (Javvarisi)","g250"],
+  ["அரிசி மாவு","Rice flour","kg1"],["இடியாப்ப மாவு","Idiyappam flour","kg1"]
+ ],
+ dal:[
+  ["துவரம் பருப்பு","Toor dal","kgh"],["உளுத்தம் பருப்பு","Urad dal","kgh"],["பாசிப்பருப்பு","Moong dal","kgh"],
+  ["கடலைப்பருப்பு","Chana dal","kgh"],["மசூர் பருப்பு","Masoor dal","kgh"],["பச்சைப் பயறு","Green gram","kgh"],
+  ["கொண்டைக்கடலை","Chickpeas (Kabuli)","kgh"],["கருப்பு கொண்டைக்கடலை","Black chickpeas","kgh"],["வெள்ளை பட்டாணி","White peas","kgh"],
+  ["ராஜ்மா","Rajma","kgh"],["தட்டைப் பயறு","Cowpea","kgh"],["கொள்ளு","Horse gram","kgh"],["முழு உளுந்து","Whole urad","kgh"]
+ ],
+ masala:[
+  ["மிளகாய் தூள்","Chilli powder","g100"],["மல்லி தூள்","Coriander powder","g100"],["மஞ்சள் தூள்","Turmeric powder","g100"],
+  ["மிளகு","Pepper","g100"],["சீரகம்","Cumin","g100"],["சோம்பு","Fennel seeds","g100"],["கடுகு","Mustard","g100"],
+  ["வெந்தயம்","Fenugreek","g100"],["பட்டை","Cinnamon","g100"],["கிராம்பு","Cloves","g100"],["ஏலக்காய்","Cardamom","g100"],
+  ["பிரியாணி இலை","Bay leaf","g100"],["பெருங்காயம்","Asafoetida","g100"],["வத்தல் மிளகாய்","Dry red chilli","g100"],
+  ["புளி","Tamarind","g250"],["கரம் மசாலா","Garam masala","g100"],["பிரியாணி மசாலா","Biryani masala","g100"],
+  ["சிக்கன் மசாலா","Chicken masala","g100"],["மட்டன் மசாலா","Mutton masala","g100"],["சாம்பார் பொடி","Sambar powder","g100"],
+  ["ரசம் பொடி","Rasam powder","g100"]
+ ],
+ nuts:[
+  ["முந்திரி","Cashew","g250","🥜"],["பாதாம்","Almond","g250","🥜"],["பிஸ்தா","Pistachio","g250"],["வால்நட்","Walnut","g250"],
+  ["உலர் திராட்சை","Raisins","g250","🍇"],["வேர்க்கடலை","Peanuts","g250","🥜"],["அத்திப்பழம் (உலர்)","Dry fig","g250"],
+  ["உலர் பாதாமி","Dried apricot","g250"],["பூசணி விதை","Pumpkin seeds","g250"],["சூரியகாந்தி விதை","Sunflower seeds","g250"],
+  ["பொட்டுக்கடலை","Roasted gram","g250"],["கொப்பரை தேங்காய்","Dry coconut (Copra)","g250","🥥"]
+ ],
+ dates:[
+  ["அஜ்வா பேரீச்சை","Ajwa dates","g250"],["மப்ரூம் பேரீச்சை","Mabroom dates","g250"],["சுக்கரி பேரீச்சை","Sukkari dates","g250"],
+  ["கலமி பேரீச்சை","Kalmi dates","g250"],["மெட்ஜூல் பேரீச்சை","Medjool dates","g250"],["குத்ரி பேரீச்சை","Khudri dates","g250"],
+  ["சஃபாவி பேரீச்சை","Safawi dates","g250"],["கொட்டை நீக்கிய பேரீச்சை","Seedless dates","g250"],["சாதாரண பேரீச்சம்பழம்","Regular dates","g250"]
+ ],
+ grocery:[
+  ["சர்க்கரை","Sugar","kg1","🍚"],["வெல்லம்","Jaggery","kgh"],["உப்பு","Salt","kg1","🧂"],["கோதுமை மாவு","Wheat flour (Atta)","kg1"],
+  ["மைதா","Maida","kg1"],["ரவை","Rava (Sooji)","kg1"],["கடலை மாவு","Besan","kgh"],["சேமியா","Vermicelli","g250"],
+  ["டீ தூள்","Tea powder","g250","🍵"],["காபி தூள்","Coffee powder","g250","☕"],["கடலை எண்ணெய்","Groundnut oil","ml","🛢️"],
+  ["நல்லெண்ணெய்","Gingelly oil","ml","🛢️"],["தேங்காய் எண்ணெய்","Coconut oil","ml","🥥"],["சூரியகாந்தி எண்ணெய்","Sunflower oil","ml","🛢️"],
+  ["நெய்","Ghee","ml5","🧈"],["பால் பவுடர்","Milk powder","g250","🥛"],["பிஸ்கட்","Biscuits","pkt","🍪"],["ஊறுகாய்","Pickle","pkt"]
+ ]
+};
+
+/* ================= DATA SETUP ================= */
+const $ = s => document.querySelector(s);
+const catById = {}; CATS.forEach(c=>catById[c[0]]=c);
+const ITEMS = []; const byId = {};
+CATS.forEach(c=>{
+  (RAW[c[0]]||[]).forEach(r=>{
+    const it={id:c[0]+"_"+r[1].toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),cat:c[0],ta:r[0],en:r[1],unit:UNITS[r[2]],emoji:r[3]||c[3]};
+    ITEMS.push(it); byId[it.id]=it;
+  });
+});
+
+/* ================= STATE ================= */
+let cart = {};            // item id -> quantity (grams / ml / count)
+let details = {name:"",phone:"",addr:"",note:""};
+let cameFromHome = false;
+try{
+  const s=JSON.parse(localStorage.getItem("bps_order")||"{}");
+  if(s.cart){ for(const k in s.cart){ if(byId[k]) cart[k]=s.cart[k]; } }
+  if(s.details) details=Object.assign(details,s.details);
+}catch(e){}
+function save(){ try{ localStorage.setItem("bps_order",JSON.stringify({cart,details})); }catch(e){} }
+
+/* ================= HELPERS ================= */
+function trimNum(n){ return String(Math.round(n*100)/100).replace(/\.0+$/,""); }
+function fmt(q,u){
+  if(u==="g")  return q>=1000 ? trimNum(q/1000)+" kg" : q+" g";
+  if(u==="ml") return q>=1000 ? trimNum(q/1000)+" L"  : q+" ml";
+  if(u==="pc") return q+(q===1?" pc":" pcs");
+  return q+" "+u;
+}
+const itemCount = () => Object.keys(cart).length;
+function curCat(){ const h=location.hash.slice(1); return catById[h]||null; }
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("on"),2200); }
+
+/* ================= RENDER ================= */
+function ctl(it){
+  const q=cart[it.id];
+  return q
+   ? `<div class="step"><button data-act="dec" aria-label="Decrease ${it.en}">−</button><span>${fmt(q,it.unit.u)}</span><button data-act="inc" aria-label="Increase ${it.en}">+</button></div>`
+   : `<button class="add" data-act="inc" aria-label="Add ${it.en}">ADD</button>`;
+}
+function row(it){
+  return `<div class="row" data-id="${it.id}" style="--tint:${catById[it.cat][4]}">
+    <span class="ico" aria-hidden="true">${it.emoji}</span>
+    <div class="nm"><b>${it.ta}</b><small>${it.en}</small></div>
+    <div data-ctl>${ctl(it)}</div></div>`;
+}
+function renderBar(){
+  const c=curCat();
+  $("#bar").innerHTML = c
+    ? `<button class="back" id="back" aria-label="Back to categories">←</button><div><h1>${c[1]}</h1><small>${c[2]}</small></div>`
+    : `<div class="mark" aria-hidden="true">ப</div><div><h1>${STORE_NAME}</h1><small>WhatsApp order | ECR &amp; OMR delivery</small></div>`;
+  $("#q").placeholder = c ? `${c[1]} பகுதியில் தேடு` : "எல்லா பொருட்களிலும் தேடு (Search)";
+}
+function renderView(){
+  const c=curCat(), q=$("#q").value.trim().toLowerCase();
+  const match = it => !q || (it.ta+" "+it.en).toLowerCase().includes(q);
+  let html="";
+  if(c){
+    const list=ITEMS.filter(it=>it.cat===c[0] && match(it));
+    html = list.length ? `<div class="rows" style="margin-top:6px">${list.map(row).join("")}</div>`
+                       : `<div class="none"><b>🔎</b>பொருள் கிடைக்கவில்லை<br>No item found</div>`;
+  } else if(q){
+    const parts=CATS.map(cc=>{
+      const list=ITEMS.filter(it=>it.cat===cc[0] && match(it));
+      return list.length ? `<div class="group">${cc[3]} ${cc[1]}</div><div class="rows">${list.map(row).join("")}</div>` : "";
+    }).join("");
+    html = parts || `<div class="none"><b>🔎</b>பொருள் கிடைக்கவில்லை<br>No item found</div>`;
+  } else {
+    html = `<div class="how"><ol>
+        <li><i>1</i>வகையைத் தேர்வு செய்யுங்கள்</li>
+        <li><i>2</i>பொருளை ADD செய்து அளவு வையுங்கள்</li>
+        <li><i>3</i>WhatsApp-ல் ஆர்டர் அனுப்புங்கள்</li></ol>
+        <p>🛵 ECR &amp; OMR பகுதிகளுக்கு மட்டும் டோர் டெலிவரி</p>
+        <p>⏱️ ${WINDOW_TA} டெலிவரி</p></div>
+      <h2 class="h2">என்ன வேண்டும்?</h2>
+      <div class="tiles">${CATS.map(cc=>{
+        const total=ITEMS.filter(it=>it.cat===cc[0]).length;
+        const got=ITEMS.filter(it=>it.cat===cc[0] && cart[it.id]).length;
+        return `<button class="tile ${got?'has':''}" data-cat="${cc[0]}" style="--tint:${cc[4]}">
+          <span class="em" aria-hidden="true">${cc[3]}</span>
+          ${got?`<span class="got" aria-label="${got} selected">${got}</span>`:""}
+          <b>${cc[1]}</b><small>${cc[2]}</small><span class="cnt">${total} பொருட்கள்</span></button>`;}).join("")}</div>`;
+  }
+  $("#view").innerHTML=html;
+}
+function renderDock(){
+  const n=itemCount();
+  $("#dock").classList.toggle("show",n>0);
+  $("#dockN").textContent=n;
+  $("#dockT").textContent = n===1 ? "பொருள் தேர்வு" : "பொருட்கள் தேர்வு";
+}
+function renderAll(scroll){
+  renderBar(); renderView(); renderDock();
+  if(scroll) window.scrollTo(0,0);
+}
+
+/* ================= CART ACTIONS ================= */
+function change(id,dir){
+  const it=byId[id], q=cart[id];
+  if(dir>0){ cart[id] = q ? q+it.unit.step : it.unit.start; if(it.unit.u==="pc"&&cart[id]>99) cart[id]=99; }
+  else { const nq=q-it.unit.step; if(nq<=0) delete cart[id]; else cart[id]=nq; }
+  save();
+  document.querySelectorAll(`.row[data-id="${id}"] [data-ctl]`).forEach(el=>el.innerHTML=ctl(it));
+  renderDock();
+  if($("#sheet").classList.contains("on")) renderReviewList();
+}
+
+/* ================= REVIEW SHEET ================= */
+function grouped(){
+  return CATS.map(c=>({c, list:ITEMS.filter(it=>it.cat===c[0] && cart[it.id])})).filter(g=>g.list.length);
+}
+function renderReviewList(){
+  const g=grouped(), el=$("#revList");
+  if(!el) return;
+  if(!g.length){ closeSheet(); return; }
+  el.innerHTML = g.map(x=>`<div class="rcat">${x.c[3]} ${x.c[1]}</div>`+x.list.map(it=>`
+    <div class="rline" data-id="${it.id}"><div class="nm">${it.ta}<small>${it.en}</small></div>
+      <div class="step"><button data-act="dec" aria-label="Decrease ${it.en}">−</button><span>${fmt(cart[it.id],it.unit.u)}</span><button data-act="inc" aria-label="Increase ${it.en}">+</button></div></div>`).join("")).join("");
+  $("#revSub").textContent = itemCount()+(itemCount()===1?" item":" items");
+}
+function openReview(){
+  $("#sheetBody").innerHTML=`
+    <h2>உங்கள் ஆர்டர்</h2><p class="sub" id="revSub"></p>
+    <div class="box" id="revList"></div>
+    <div class="win"><span aria-hidden="true">⏱️</span><div>டெலிவரி: ${WINDOW_TA}<br><small style="font-weight:500">Delivery ${WINDOW_EN}</small></div></div>
+    <div class="box"><h3>டெலிவரி விவரம்</h3>
+      <label class="fld" id="fName">பெயர் (Name)<input id="iName" autocomplete="name"><span class="err">பெயரை உள்ளிடவும்</span></label>
+      <label class="fld" id="fPhone">மொபைல் எண் (Mobile)<input id="iPhone" inputmode="numeric" maxlength="10" autocomplete="tel"><span class="err">சரியான 10 இலக்க எண்ணை உள்ளிடவும்</span></label>
+      <label class="fld" id="fAddr">முகவரி (Address, ECR / OMR)<textarea id="iAddr" placeholder="வீட்டு எண், தெரு, பகுதி"></textarea><span class="err">முகவரியை உள்ளிடவும்</span></label>
+      <label class="fld">குறிப்பு (Note, optional)<input id="iNote" placeholder="எ.கா. பல்லாரி சிறியதாக வேண்டும்"></label>
+    </div>
+    <button class="cta" id="send">WhatsApp-ல் ஆர்டர் அனுப்பு</button>
+    <button class="cta ghost" id="clearAll">எல்லாவற்றையும் நீக்கு (Clear)</button>`;
+  $("#iName").value=details.name; $("#iPhone").value=details.phone; $("#iAddr").value=details.addr; $("#iNote").value=details.note;
+  renderReviewList();
+  $("#veil").classList.add("on"); $("#sheet").classList.add("on"); document.documentElement.classList.add("lock");
+}
+function closeSheet(){
+  $("#veil").classList.remove("on"); $("#sheet").classList.remove("on"); document.documentElement.classList.remove("lock");
+}
+
+/* ================= WHATSAPP MESSAGE ================= */
+function buildMessage(){
+  const now=new Date();
+  const when=now.toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+  const out=[`*${STORE_NAME} - புதிய ஆர்டர்*`,when,""];
+  grouped().forEach(g=>{
+    out.push(`*${g.c[3]} ${g.c[1]} (${g.c[2]})*`);
+    g.list.forEach((it,i)=>out.push(`${i+1}. ${it.ta} (${it.en}) - ${fmt(cart[it.id],it.unit.u)}`));
+    out.push("");
+  });
+  out.push(`மொத்தம்: ${itemCount()} பொருட்கள்`,"");
+  out.push(`பெயர்: ${details.name}`,`மொபைல்: ${details.phone}`,`முகவரி: ${details.addr}`,`டெலிவரி: ${WINDOW_TA} (Delivery ${WINDOW_EN})`);
+  if(details.note) out.push(`குறிப்பு: ${details.note}`);
+  return out.join("\n");
+}
+function validate(){
+  const n=$("#iName").value.trim(), p=$("#iPhone").value.trim(), a=$("#iAddr").value.trim();
+  const rules=[["fName",n.length>1],["fPhone",/^[6-9]\d{9}$/.test(p)],["fAddr",a.length>5]];
+  rules.forEach(([id,ok])=>document.getElementById(id).classList.toggle("bad",!ok));
+  if(!rules.every(r=>r[1])) return false;
+  details={name:n,phone:p,addr:a,note:$("#iNote").value.trim()}; save();
+  return true;
+}
+function sendOrder(){
+  if(!validate()){ toast("விவரங்களை சரி பார்க்கவும்"); return; }
+  const msg=buildMessage();
+  const url="https://wa.me/"+STORE_WHATSAPP+"?text="+encodeURIComponent(msg);
+  $("#sheetBody").innerHTML=`<div class="ok"><div class="tick">✓</div>
+    <h2 style="padding:0">ஆர்டர் தயார்</h2>
+    <p class="sub">WhatsApp திறக்கும். அங்கு <b>Send</b> அழுத்தினால் ஆர்டர் கடைக்கு சென்றுவிடும்.<br>திறக்கவில்லை என்றால் கீழே உள்ள பச்சை பட்டனை அழுத்தவும்.<br>${WINDOW_TA} டெலிவரி செய்யப்படும்.</p>
+    <a class="cta" href="${url}" target="_blank" rel="noopener">WhatsApp-ஐ திற</a>
+    <pre id="sum"></pre>
+    <button class="cta ghost" id="copySum">Copy order text</button>
+    <button class="cta ghost" id="newOrder">புதிய ஆர்டர் (New order)</button></div>`;
+  $("#sum").textContent=msg;
+  const w=window.open(url,"_blank");
+  if(!w) location.href=url;
+}
+
+/* ================= EVENTS ================= */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");
+  if(!t) return;
+  if(t.dataset.act){ const holder=t.closest("[data-id]"); if(holder) change(holder.dataset.id,t.dataset.act==="inc"?1:-1); return; }
+  if(t.dataset.cat){ cameFromHome=true; $("#q").value=""; location.hash=t.dataset.cat; return; }
+  if(t.id==="back"){ $("#q").value=""; if(cameFromHome && history.length>1) history.back(); else location.hash=""; return; }
+  if(t.id==="openReview"){ openReview(); return; }
+  if(t.id==="send"){ sendOrder(); return; }
+  if(t.id==="clearAll"){ cart={}; save(); closeSheet(); renderAll(); toast("ஆர்டர் நீக்கப்பட்டது"); return; }
+  if(t.id==="newOrder"){ cart={}; save(); closeSheet(); renderAll(true); return; }
+  if(t.id==="copySum"){ (navigator.clipboard?navigator.clipboard.writeText($("#sum").textContent):Promise.reject()).then(()=>toast("Copied"),()=>toast("Select the text and copy")); return; }
+  if(t.hasAttribute("data-close")) closeSheet();
+});
+$("#veil").addEventListener("click",closeSheet);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
+$("#q").addEventListener("input",renderView);
+window.addEventListener("hashchange",()=>{ $("#q").value=""; renderAll(true); });
+
+/* ================= START ================= */
+renderAll();
+</script>
+</body>
+</html>
